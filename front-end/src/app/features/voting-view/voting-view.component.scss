@@ -1,0 +1,13 @@
+.poll-view-container {
+  display: grid;
+  place-items: start center; /* Centers both horizontally & vertically */
+
+  .poll-view-header {
+    height: 5vh;
+
+    span {
+      font-family: "Courier New", Courier, monospace;
+      color: white;
+    }
+  }
+}
