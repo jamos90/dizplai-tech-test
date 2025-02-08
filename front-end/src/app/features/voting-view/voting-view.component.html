@@ -1,1 +1,10 @@
-<p>voting-view works!</p>
+<div>
+  <p>voting-view works!</p>
+  @for (entry of poll.entires; track entry.name; let i = $index;) {
+  {{ entry }}
+  <app-poll-option
+    (countVote)="updateSelectedEntry(i)"
+    [entryTitle]="entry.name"
+  ></app-poll-option>
+  }
+</div>

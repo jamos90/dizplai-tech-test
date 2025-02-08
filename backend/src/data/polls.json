@@ -4,7 +4,7 @@
       "id": "1",
       "name": "Test poll-1",
       "status": "active",
-      "entires": [
+      "entries": [
         {
           "id": "1",
           "name": "test-answer-1",
