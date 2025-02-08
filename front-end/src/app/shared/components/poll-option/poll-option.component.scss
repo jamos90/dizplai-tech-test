@@ -1,0 +1,24 @@
+@use "_variables.scss" as variables;
+
+.poll-entry-container {
+  border: 1px solid variables.$border-colour-white;
+  border-radius: 4%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  width: 20rem;
+  display: grid;
+  place-items: center;
+
+  &:hover {
+    background-color: variables.$interactive-hover-colour;
+    cursor: pointer;
+  }
+
+  .entry-name {
+    font-family: variables.$primary-font-family;
+    padding: 5% 20%;
+    font-size: 1.5rem;
+    color: variables.$primary-text-colour;
+  }
+}
