@@ -5,20 +5,16 @@ const router = express.Router();
 
 router.get("/active", PollsController.getActivePoll);
 
-router.get("/", (req, res) => {
-  //get all polls
-  console.log("polls endpoint");
-  res.json({
-    hello: "world"
-  });
-});
+router.get("/", PollsController.getAllPolls);
+
+router.get("/:id", PollsController.getPollById);
+
+router.put("/:id/:entryId", PollsController.addVoteToEntry);
 
 router.put("/:id", (req, res) => {
   //update a specific poll
 });
 
-router.post("/", (req, res) => {
-  // create a new poll
-});
+router.post("/", PollsController.addSinglePoll);
 
 module.exports = router;
