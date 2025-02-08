@@ -7,7 +7,7 @@ import { PollsService } from '../../core/services/polls-service/polls.service';
   imports: [PollOptionComponent],
   providers: [PollsService],
   templateUrl: './voting-view.component.html',
-  styleUrl: './voting-view.component.sass'
+  styleUrl: './voting-view.component.scss'
 })
 export class VotingViewComponent {
   constructor(private pollService: PollsService) {}

@@ -8,7 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [RouterOutlet, HttpClientModule],
   providers: [HttpService],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.sass'
+  styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'front-end';

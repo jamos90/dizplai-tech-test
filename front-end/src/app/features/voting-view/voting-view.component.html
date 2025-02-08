@@ -1,10 +1,15 @@
-<div>
-  <p>voting-view works!</p>
-  @for (entry of poll.entires; track entry.name; let i = $index;) {
-  {{ entry }}
-  <app-poll-option
-    (countVote)="updateSelectedEntry(i)"
-    [entryTitle]="entry.name"
-  ></app-poll-option>
-  }
+<div class="poll-view-container">
+  <div class="poll-view-header">
+    <span>{{ poll.name }}</span>
+  </div>
+  <div class="poll-entry-container">
+    @for (entry of poll.entries; track entry.name; let i = $index;) {
+    <app-poll-option
+      (countVote)="updateSelectedEntry(i)"
+      [entryTitle]="entry.name"
+    ></app-poll-option>
+    } @empty {
+    <p>No Active Poll found</p>
+    }
+  </div>
 </div>
