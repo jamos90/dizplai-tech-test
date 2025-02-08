@@ -1,3 +1,5 @@
+@use "_variables.scss" as variables;
+
 .poll-view-container {
   display: grid;
   place-items: start center; /* Centers both horizontally & vertically */
@@ -6,7 +8,7 @@
     height: 5vh;
 
     span {
-      font-family: "Courier New", Courier, monospace;
+      font-family: variables.$primary-font-family;
       color: white;
     }
   }
