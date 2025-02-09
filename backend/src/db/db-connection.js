@@ -13,15 +13,19 @@ Model.knex(knexInstance);
 
 async function createTables() {
   try {
+    //TODO: consider removing
+    await knexInstance.schema.dropTableIfExists("options");
+    await knexInstance.schema.dropTableIfExists("polls");
+
     await knexInstance.schema.createTableIfNotExists("polls", table => {
       table.increments("id").primary();
       table.string("name").notNullable();
+      table.integer("totalVotes").defaultTo(0);
       table
         .string("status")
         .notNullable()
         .defaultTo("active");
       table.text("description").nullable();
-      table.integer("totalVotes").defaultTo(0);
     });
 
     await knexInstance.schema.createTableIfNotExists("options", table => {
@@ -53,6 +57,23 @@ async function createTables() {
         .inTable("options")
         .onDelete("CASCADE");
     });
+
+    const [poll] = await knexInstance("polls")
+      .insert([
+        {
+          name: "Premier League Poll",
+          status: "active",
+          description: "Who will win the Premier League?",
+          totalVotes: 0
+        }
+      ])
+      .returning("*");
+
+    await knexInstance("options").insert([
+      { name: "Manchester City", poll_id: poll.id, totalVotes: 0 },
+      { name: "Manchester United", poll_id: poll.id, totalVotes: 0 },
+      { name: "Chelsea", poll_id: poll.id, totalVotes: 0 }
+    ]);
   } catch (err) {
     console.error("Error creating one or more db tables", err);
     return false;
