@@ -17,7 +17,10 @@ class PollsController {
 
   getPollById = async (req, res) => {};
 
-  addVoteToEntry = async (req, res) => {};
+  addVoteToEntry = async (req, res) => {
+    console.log("request", req.body);
+    res.send(201, "created");
+  };
 
   addSinglePoll = async (req, res) => {
     console.log(req.body);
