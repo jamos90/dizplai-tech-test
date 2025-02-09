@@ -20,7 +20,7 @@
     width: 50vw;
     height: 15vh;
     max-height: 100px;
-    max-width: 400px;
+    // max-width: 400px;
     color: variables.$primary-text-colour;
     font-family: variables.$primary-font-family;
     position: relative;
@@ -32,20 +32,19 @@
       color: white;
       font-weight: bold;
       z-index: 2;
-      top: 4vh;
+      top: 3vh;
       left: 8vw;
       font-family: variables.$primary-font-family;
       font-size: 1.5rem;
     }
-  }
 
-  .progress-bar {
-    height: 100%;
-    width: 0%;
-    transition: width 0.4s ease-in-out;
-    background: rgba(255, 255, 255, 0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: rgba(255, 255, 255, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 }
