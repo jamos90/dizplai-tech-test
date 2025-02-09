@@ -31,7 +31,7 @@ export class VotingViewComponent {
     console.log('selected entry', this.poll.entries[index]);
     this.selectedEntry = this.poll.entries[index];
     this.selectedId = index;
-    this.updateDataService(this.selectedEntry);
+    // this.updateDataService(this.selectedEntry);
   }
 
   showData(data: any) {
@@ -39,7 +39,7 @@ export class VotingViewComponent {
     this.poll = data.mockData.polls[0];
   }
 
-  updateDataService(data: any) {
-    this.dataService.updateData(this.selectedEntry);
-  }
+  // updateDataService(data: any) {
+  //   this.dataService.updateData(this.selectedEntry);
+  // }
 }
