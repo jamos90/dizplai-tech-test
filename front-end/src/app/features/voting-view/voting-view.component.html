@@ -15,7 +15,11 @@
     }
   </div>
   <div>
-    <button class="submit-button" [disabled]="true">
+    <button
+      (click)="submitVote()"
+      class="submit-button"
+      [disabled]="!selectedOption"
+    >
       SUBMIT
     </button>
   </div>
