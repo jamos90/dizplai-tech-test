@@ -8,24 +8,41 @@
   background-color: rgba(255, 255, 255, 0.1);
   width: 20rem;
   display: grid;
-  place-items: center;
+  place-items: start;
+  display: flex;
 
   .progress-bar-container {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid variables.$border-colour-white;
     overflow: hidden;
     height: 2rem;
-    width: 100%;
+    width: 50vw;
+    height: 10vh;
+    max-width: 400px;
+    color: variables.$primary-text-colour;
+    font-family: variables.$primary-font-family;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+
+    span {
+      position: absolute;
+      color: white;
+      font-weight: bold;
+      z-index: 2;
+      top: 4vh;
+      left: 8vw;
+    }
   }
 
   .progress-bar {
     height: 100%;
     width: 0%;
     transition: width 0.4s ease-in-out;
-    display: grid;
-    place-items: center;
+    // display: grid;
+    // place-items: center;
     background: rgba(255, 255, 255, 0.3);
-    color: variables.$primary-text-colour;
-    font-family: variables.$primary-font-family;
+    transition: width 0.5s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
