@@ -1,1 +1,22 @@
-<p>voting-view works!</p>
+<div class="poll-view-container">
+  <div class="poll-description">
+    <span>{{ poll.description }}</span>
+  </div>
+  <div class="poll-entry-container">
+    @for (entry of poll.entries; track entry.name; let i = $index;) {
+    <app-poll-option
+      (countVote)="updateSelectedEntry(i)"
+      [entryTitle]="entry.name"
+      [ngClass]="{ selected: selectedId === i }"
+    ></app-poll-option>
+    {{ selectedId }}
+    } @empty {
+    <p>No Active Poll found</p>
+    }
+  </div>
+  <div>
+    <button class="submit-button" [disabled]="true">
+      SUBMIT
+    </button>
+  </div>
+</div>

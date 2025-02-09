@@ -1,0 +1,18 @@
+@use "_variables.scss" as variables;
+
+.progress-bar-container {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid variables.$border-colour-white;
+  overflow: hidden;
+  height: 2rem;
+  width: 2rem;
+
+  .progress-bar {
+    height: 100%;
+    width: 0%;
+    transition: width 0.4s ease-in-out;
+    display: grid;
+    place-items: center;
+    background: rgba(255, 255, 255, 0.3);
+  }
+}

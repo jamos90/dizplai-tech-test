@@ -1,0 +1,24 @@
+@use "_variables.scss" as variables;
+
+.results-view-container {
+  display: grid;
+  place-items: start center;
+
+  .results-headers {
+    height: 10vh;
+    width: 20rem;
+    margin-bottom: 1%;
+    display: grid;
+    place-content: center;
+
+    .header {
+      color: variables.$primary-text-colour;
+      font-family: variables.$primary-font-family;
+      font-size: 2rem;
+    }
+
+    .header:last-of-type {
+      font-weight: bold;
+    }
+  }
+}
