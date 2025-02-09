@@ -1,14 +1,16 @@
 @use "_variables.scss" as variables;
 
 .poll-entry-container {
+  display: grid;
+  place-items: center;
   border: 2px solid variables.$border-colour-white;
   border-radius: 4%;
   margin-top: 1rem;
   margin-bottom: 1rem;
   background-color: rgba(255, 255, 255, 0.1);
-  width: 20rem;
-  display: grid;
-  place-items: center;
+  width: 50vw;
+  height: 10vh;
+  max-width: 400px;
 
   .selected {
     background-color: variables.$interactive-hover-colour;
