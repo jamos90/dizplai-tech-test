@@ -15,7 +15,18 @@ export class PollsService {
     return data;
   }
 
-  updatePollVotesById(requestBody: VoteSubmit): Observable<any> {
-    return this.httpService.put(`polls/${requestBody.pollId}`, requestBody);
+  updatePollVotesById(requestBody: VoteSubmit): void {
+    console.log(
+      'updating poll by id',
+      `polls/${requestBody.pollId}/${requestBody.optionId}`
+    );
+    const updateRequest = this.httpService.put(
+      `polls/${requestBody.pollId}/${requestBody.optionId}`,
+      requestBody
+    );
+    updateRequest.subscribe(
+      data => console.log(data),
+      err => console.log(err)
+    );
   }
 }

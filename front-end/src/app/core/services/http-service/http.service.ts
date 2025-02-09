@@ -12,10 +12,15 @@ export class HttpService {
   private apiBase = 'http://localhost:3100/api';
 
   get(endPoint: string): Observable<any> {
-    return this.httpClient.get(`${this.apiBase}/${endPoint}`);
+    return this.httpClient.get(`${this.apiBase}/${endPoint}`, {
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 
   put(endPoint: string, body: VoteSubmit) {
-    return this.httpClient.put(`${this.apiBase}/${endPoint}`, body);
+    console.log('http service', `${this.apiBase}/${endPoint}`);
+    return this.httpClient.put(`${this.apiBase}/${endPoint}`, body, {
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 }
