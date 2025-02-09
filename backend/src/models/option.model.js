@@ -1,11 +1,13 @@
 const { Model } = require("objection");
+const Poll = require("./poll.model");
+const VoteModel = require("./vote.model");
 
 class Option extends Model {
-  get tableName() {
+  static get tableName() {
     return "options";
   }
 
-  get relationMappings() {
+  static get relationMappings() {
     const Poll = require("./poll.model");
     return {
       poll: {
@@ -14,6 +16,14 @@ class Option extends Model {
         join: {
           from: "options.poll_id",
           to: "polls.id"
+        }
+      },
+      votes: {
+        relation: Model.HasManyRelation,
+        modelClass: VoteModel,
+        join: {
+          from: "options.id",
+          to: "votes.option_id"
         }
       }
     };

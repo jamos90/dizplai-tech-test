@@ -1,23 +1,23 @@
 const { Model } = require("objection");
 const Option = require("./option.model");
 
-class Poll extends Model {
+class VoteModel extends Model {
   static get tableName() {
-    return "polls";
+    return "votes";
   }
 
   static get relationMappings() {
     return {
       options: {
-        relation: Model.HasManyRelation,
+        relation: Model.BelongsToOneRelation,
         modelClass: Option,
         join: {
-          from: "polls.id",
-          to: "options.poll_id"
+          from: "votes.option_id",
+          to: "options.id"
         }
       }
     };
   }
 }
 
-module.exports = Poll;
+module.exports = VoteModel;

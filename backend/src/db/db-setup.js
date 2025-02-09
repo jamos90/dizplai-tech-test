@@ -5,6 +5,7 @@ async function createTables() {
     //TODO: consider removing
     await knexInstance.schema.dropTableIfExists("options");
     await knexInstance.schema.dropTableIfExists("polls");
+    await knexInstance.schema.dropTableIfExists("votes");
 
     await knexInstance.schema.createTableIfNotExists("polls", table => {
       table.increments("id").primary();
@@ -35,10 +36,6 @@ async function createTables() {
         .integer("option_id")
         .unsigned()
         .notNullable();
-      table
-        .integer("user_id")
-        .unsigned()
-        .nullable();
       table.timestamp("timestamp").defaultTo(knexInstance.fn.now());
       table
         .foreign("option_id")
