@@ -35,6 +35,10 @@ class PollService {
           .where("id", optionId)
           .increment("totalVotes", 1);
 
+        await PollModel.query(transaction)
+          .where("id", pollId)
+          .increment("totalVotes", 1);
+
         updatedPoll = await PollModel.query(transaction)
           .where("id", pollId)
           .first()
