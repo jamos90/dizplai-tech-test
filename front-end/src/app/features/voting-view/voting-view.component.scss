@@ -4,12 +4,38 @@
   display: grid;
   place-items: start center;
 
-  .poll-view-header {
-    height: 5vh;
+  .poll-description {
+    height: 10vh;
+    width: 20rem;
+    margin-bottom: 1%;
+    display: grid;
+    place-content: center;
 
     span {
       font-family: variables.$primary-font-family;
       color: white;
+      font-size: 2rem;
+    }
+  }
+
+  app-poll-option {
+    .selected {
+      background-color: variables.$interactive-hover-colour;
+    }
+  }
+
+  .submit-button {
+    width: 20rem;
+    height: 4rem;
+    background-color: #ffffff;
+    color: variables.$secondary-test-colour;
+    font-family: variables.$primary-font-family;
+    font-size: 1.5rem;
+    border-radius: 5%;
+
+    &:hover {
+      cursor: pointer;
+      background-color: variables.$interactive-hover-colour;
     }
   }
 }
