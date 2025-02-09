@@ -4,10 +4,10 @@
     <p class="header">For your response</p>
   </div>
   <div class="results-container">
-    @for (option of data.options; track option.name; let i = $index) {
+    @for (option of poll.options; track option.name; let i = $index) {
     <app-poll-result
       [option]="option"
-      [totalVotes]="data.totalVotes"
+      [totalVotes]="poll.totalVotes"
     ></app-poll-result>
     }
   </div>
