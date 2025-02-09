@@ -19,7 +19,8 @@ export class PollResultComponent {
   }
 
   calculatePercentageOfVote() {
-    console.log(Math.round((this.option.voteCount / this.totalVotes) * 100));
-    return Math.round((this.option.voteCount / this.totalVotes) * 100);
+    return this.totalVotes === 0 || this.option.totalVotes === 0
+      ? 0
+      : Math.round((this.option.totalVotes / this.totalVotes) * 100);
   }
 }

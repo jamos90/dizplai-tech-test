@@ -3,7 +3,7 @@
 @use "_variables.scss" as variables;
 
 html {
-  background-color: variables.$primary-background-colour;
+  background: linear-gradient(135deg, #10002b, #3c096c, #5a189a);
   width: 100vw;
   overflow-x: hidden;
 }

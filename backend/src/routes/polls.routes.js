@@ -9,7 +9,7 @@ router.get("/", PollsController.getAllPolls);
 
 router.get("/:id", PollsController.getPollById);
 
-router.put("/:id/:entryId", PollsController.addVoteToEntry);
+router.put("/:poolId/:optionId/vote", PollsController.addVoteToEntry);
 
 router.put("/:id", (req, res) => {
   //update a specific poll
