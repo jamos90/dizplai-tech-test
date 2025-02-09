@@ -25,7 +25,8 @@
   }
 
   .submit-button {
-    width: 25vw;
+    width: variables.$option-width;
+    max-width: variables.$option-max-width;
     height: 10vh;
     background-color: #ffffff;
     color: variables.$secondary-test-colour;
