@@ -5,7 +5,8 @@
       "name": "Premier League Poll",
       "status": "active",
       "description": "Who will win the Premier League?",
-      "entries": [
+      "totalVotes": 0,
+      "options": [
         {
           "id": "1",
           "name": "Manchester City",
@@ -27,7 +28,9 @@
       "id": "2",
       "name": "Test poll-2",
       "status": "active",
-      "entires": [
+      "description": "Who will win the Premier League?",
+      "totalVotes": 0,
+      "options": [
         {
           "id": "1",
           "name": "test-answer-1",

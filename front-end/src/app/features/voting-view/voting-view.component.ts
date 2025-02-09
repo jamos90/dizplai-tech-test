@@ -3,6 +3,9 @@ import { PollOptionComponent } from '../../shared/components/poll-option/poll-op
 import { PollsService } from '../../core/services/polls-service/polls.service';
 import { CommonModule } from '@angular/common';
 import { DataService } from '../../core/services/data-service/data.service';
+import { VoteSubmit } from '../../models/polls/vote-submit.model';
+import { Poll } from '../../models/polls/poll.model';
+import { Option } from '../../models/polls/option.model';
 
 @Component({
   selector: 'app-voting-view',
@@ -16,9 +19,9 @@ export class VotingViewComponent {
     private pollService: PollsService,
     private dataService: DataService
   ) {}
-  poll;
-  selectedEntry;
-  selectedId;
+  poll: Poll;
+  selectedOption: Option;
+  selectedOptionId: number;
 
   ngOnInit() {
     this.pollService.getAllPolls().subscribe(
@@ -28,10 +31,9 @@ export class VotingViewComponent {
   }
 
   updateSelectedEntry(index: number) {
-    console.log('selected entry', this.poll.entries[index]);
-    this.selectedEntry = this.poll.entries[index];
-    this.selectedId = index;
-    // this.updateDataService(this.selectedEntry);
+    console.log('selected entry', this.poll.options[index]);
+    this.selectedOption = this.poll.options[index];
+    this.selectedOptionId = this.poll.options[index].id;
   }
 
   showData(data: any) {
@@ -39,7 +41,12 @@ export class VotingViewComponent {
     this.poll = data.mockData.polls[0];
   }
 
-  // updateDataService(data: any) {
-  //   this.dataService.updateData(this.selectedEntry);
-  // }
+  submitVote() {
+    console.log('submitting vote', this.selectedOption);
+    const voteData: VoteSubmit = {
+      pollId: this.selectedOption.id,
+      optionId: this.selectedOptionId
+    };
+    this.pollService.updatePollVotesById(voteData);
+  }
 }
