@@ -23,15 +23,11 @@ async function createTables() {
       table.text("description").nullable();
       table.integer("totalVotes").defaultTo(0);
     });
-  } catch (err) {
-    return console.error("Error creating Polls table", err);
-  }
 
-  try {
     await knexInstance.schema.createTableIfNotExists("options", table => {
       table.increments("id").primary();
       table.string("name").notNullable();
-      table.json("votes").defaultTo("[]");
+      table.integer("totalVotes").defaultTo(0);
       table
         .integer("poll_id")
         .unsigned()
@@ -39,8 +35,27 @@ async function createTables() {
         .inTable("polls")
         .onDelete("CASCADE");
     });
+
+    await knexInstance.schema.createTableIfNotExists("votes", table => {
+      table.increments("id").primary();
+      table
+        .integer("option_id")
+        .unsigned()
+        .notNullable();
+      table
+        .integer("user_id")
+        .unsigned()
+        .nullable();
+      table.timestamp("timestamp").defaultTo(knexInstance.fn.now());
+      table
+        .foreign("option_id")
+        .references("id")
+        .inTable("options")
+        .onDelete("CASCADE");
+    });
   } catch (err) {
-    return console.error("Error creating options table", err);
+    console.error("Error creating one or more db tables", err);
+    return false;
   }
 }
 
