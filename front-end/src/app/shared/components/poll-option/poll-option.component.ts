@@ -1,8 +1,9 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-poll-option',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './poll-option.component.html',
   styleUrl: './poll-option.component.scss'
 })
@@ -10,8 +11,11 @@ export class PollOptionComponent {
   @Input({ required: true }) entryTitle: string | undefined;
   @Output() countVote = new EventEmitter<string>();
 
+  isActive: boolean = false;
+
   vote() {
     console.log('voting');
+    this.isActive = true;
     this.countVote.emit(this.entryTitle);
   }
 }

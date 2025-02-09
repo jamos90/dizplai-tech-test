@@ -2,22 +2,23 @@
   "polls": [
     {
       "id": "1",
-      "name": "Test poll-1",
+      "name": "Premier League Poll",
       "status": "active",
+      "description": "Who will win the Premier League?",
       "entries": [
         {
           "id": "1",
-          "name": "test-answer-1",
+          "name": "Manchester City",
           "votes": 0
         },
         {
           "id": "2",
-          "name": "test-answer-2",
+          "name": "Manchester United",
           "votes": 0
         },
         {
           "id": "1",
-          "name": "test-answer-3",
+          "name": "Chelsea",
           "votes": 0
         }
       ]
