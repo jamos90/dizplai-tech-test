@@ -5,7 +5,10 @@
   </div>
   <div class="results-container">
     @for (option of data.options; track option.name; let i = $index) {
-    <app-poll-result></app-poll-result>
+    <app-poll-result
+      [option]="option"
+      [totalVotes]="data.totalVotes"
+    ></app-poll-result>
     }
   </div>
 </div>

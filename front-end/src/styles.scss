@@ -4,4 +4,6 @@
 
 html {
   background-color: variables.$primary-background-colour;
+  width: 100vw;
+  overflow-x: hidden;
 }
