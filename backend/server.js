@@ -1,6 +1,6 @@
 const application = require("./src/app");
 const PORT = process.env.PORT || 3100;
-const { createTables } = require("./src/db/db-connection");
+const { createTables } = require("./src/db/db-setup");
 
 createTables()
   .then(() => {
