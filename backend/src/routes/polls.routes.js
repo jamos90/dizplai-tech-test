@@ -7,9 +7,13 @@ router.get("/active", PollsController.getActivePoll);
 
 router.get("/", PollsController.getAllPolls);
 
+router.get("/:pollId/votes", PollsController.getVotesForPoll);
+
 router.get("/:id", PollsController.getPollById);
 
-router.put("/:poolId/:optionId/vote", PollsController.addVoteToEntry);
+router.post("/", PollsController.addSinglePoll);
+
+router.put("/:pollId/:optionId/vote", PollsController.addVoteToEntry);
 
 router.put("/:id", (req, res) => {
   //update a specific poll

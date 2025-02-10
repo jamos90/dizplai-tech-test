@@ -4,8 +4,6 @@ const VoteModel = require("../models/vote.model");
 const OptionModel = require("../models/option.model");
 
 class PollService {
-  //TODO:: add db logic when we have it set up
-
   async getAllPolls() {
     try {
       const polls = PollModel.query()
@@ -18,6 +16,22 @@ class PollService {
         query: "All polls",
         error: err
       };
+    }
+  }
+
+  async addPoll(pollData) {
+    try {
+      const pollOptions = pollData.options;
+      const newPoll = await PollModel.query().insertGraphAndFetch({
+        ...pollData,
+        options: pollOptions.map(data => {
+          return data;
+        })
+      });
+      return newPoll;
+    } catch (err) {
+      console.log(err);
+      return false;
     }
   }
 
@@ -43,8 +57,6 @@ class PollService {
           .where("id", pollId)
           .first()
           .withGraphFetched("options");
-
-        console.log("updated option", updatedPoll);
       });
       return updatedPoll;
     } catch (err) {
@@ -52,9 +64,22 @@ class PollService {
       return false;
     }
   }
+
+  async getVotesForPoll(pollId) {
+    try {
+      const query = PollModel.transaction(async trx => {
+        PollModel.query()
+          .findById(pollId)
+          .withGraphFetched("options.votes");
+      });
+
+      console.log("votes query", query);
+    } catch (err) {}
+  }
 }
 
 module.exports = {
   getAllPolls: PollService.prototype.getAllPolls,
-  addVote: PollService.prototype.addVote
+  addVote: PollService.prototype.addVote,
+  addPoll: PollService.prototype.addPoll
 };

@@ -1,6 +1,6 @@
 const mockData = require("../data/polls.json");
 const pollValidation = require("../validations/poll.validations");
-const { getAllPolls, addVote } = require("../services/polls.service");
+const { getAllPolls, addVote, addPoll } = require("../services/polls.service");
 
 class PollsController {
   getActivePoll = async (req, res) => {
@@ -24,9 +24,8 @@ class PollsController {
 
   addVoteToEntry = async (req, res) => {
     const optionId = req.params.optionId;
-    const pollId = req.params.poolId;
+    const pollId = req.params.pollId;
     const updatedOption = await addVote(optionId, pollId);
-    console.log(updatedOption);
     if (!updatedOption) {
       return res.status(500).send("error adding vote");
     } else {
@@ -35,18 +34,28 @@ class PollsController {
   };
 
   addSinglePoll = async (req, res) => {
-    console.log(req.body);
     const { error } = pollValidation(req.body);
     if (error) {
-      console.log(error);
-      return res.status(500).send({
-        errorCode: 500,
+      return res.status(422).send({
+        errorCode: 422,
         reason: "Invalid Request Body",
         message: error.message
       });
     }
-    // mockData.polls.push(req.body);
-    res.json(mockData);
+    const newPoll = await addPoll(req.body);
+    if (newPoll) {
+      res.status(201).send(newPoll);
+    } else {
+      res.status(500).send({
+        errorCode: 500,
+        reason: "Error creating poll"
+      });
+    }
+  };
+
+  getVotesForPoll = async (req, res) => {
+    const pollId = req.req.params.pollId;
+    // const pollWithVotes = await
   };
 }
 

@@ -1,5 +1,4 @@
 const { Model } = require("objection");
-const Option = require("./option.model");
 
 class VoteModel extends Model {
   static get tableName() {
@@ -8,9 +7,9 @@ class VoteModel extends Model {
 
   static get relationMappings() {
     return {
-      options: {
+      option: {
         relation: Model.BelongsToOneRelation,
-        modelClass: Option,
+        modelClass: () => require("./option.model"),
         join: {
           from: "votes.option_id",
           to: "options.id"
