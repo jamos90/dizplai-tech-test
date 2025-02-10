@@ -1,7 +1,3 @@
-<div
-  (click)="vote()"
-  class="poll-entry-container"
-  [ngClass]="{ active: isActive }"
->
+<div (click)="vote()" class="poll-entry-container" [ngClass]="selectedClass">
   <div class="entry-name">{{ entryTitle }}</div>
 </div>

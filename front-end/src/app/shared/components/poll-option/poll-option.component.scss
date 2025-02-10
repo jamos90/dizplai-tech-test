@@ -13,7 +13,7 @@
   height: variables.$option-height;
   max-height: variables.$option-max-height;
 
-  .selected {
+  &.selected {
     background-color: variables.$interactive-hover-colour;
   }
 

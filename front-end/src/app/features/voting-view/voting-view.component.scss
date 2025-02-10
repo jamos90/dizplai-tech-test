@@ -20,12 +20,6 @@
     }
   }
 
-  app-poll-option {
-    .selected {
-      background-color: variables.$interactive-hover-colour;
-    }
-  }
-
   .submit-button {
     width: variables.$option-width;
     max-width: variables.$option-max-width;
@@ -44,9 +38,6 @@
     &:disabled {
       cursor: not-allowed;
       opacity: 0.6;
-
-      &:hover {
-      }
     }
   }
 }
