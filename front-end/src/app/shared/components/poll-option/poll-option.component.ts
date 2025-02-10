@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 })
 export class PollOptionComponent {
   @Input({ required: true }) entryTitle: string | undefined;
+  @Input() selectedClass: string;
   @Output() countVote = new EventEmitter<string>();
 
   isActive: boolean = false;

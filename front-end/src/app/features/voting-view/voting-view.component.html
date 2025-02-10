@@ -1,4 +1,5 @@
 <div class="poll-view-container">
+  @if (poll) {
   <div class="poll-description">
     <span>{{ poll.description }}</span>
   </div>
@@ -7,12 +8,13 @@
     <app-poll-option
       (countVote)="updateSelectedEntry(i)"
       [entryTitle]="entry.name"
-      [ngClass]="{ selected: selectedOptionId === i }"
+      [selectedClass]="selectedIndex === i ? 'selected' : ''"
     ></app-poll-option>
     } @empty {
-    <p>No Active Poll found</p>
+    <p class="no-poll-text">No Active Poll found</p>
     }
   </div>
+  {{ selectedIndex }}
   <div>
     <button
       (click)="submitVote()"
@@ -22,4 +24,5 @@
       SUBMIT
     </button>
   </div>
+  }
 </div>

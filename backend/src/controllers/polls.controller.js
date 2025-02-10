@@ -1,22 +1,22 @@
-const mockData = require("../data/polls.json");
 const pollValidation = require("../validations/poll.validations");
-const { getAllPolls, addVote, addPoll } = require("../services/polls.service");
+const pollService = require("../services/polls.service.js");
 
 class PollsController {
   getActivePoll = async (req, res) => {
-    //add logic to get active poll.
     res.json({
       status: "active"
     });
   };
 
   getAllPolls = async (req, res) => {
-    console.log(getAllPolls);
-    try {
-      const allData = await getAllPolls();
-      res.status(200).send(allData);
-    } catch (err) {
-      res.status(500).send(err);
+    const result = await pollService.getActivePolls();
+    if (result.success) {
+      res.status(200).send(result.data);
+    } else {
+      return res.status(500).send({
+        status: 500,
+        message: result.errorMessage
+      });
     }
   };
 
@@ -25,11 +25,14 @@ class PollsController {
   addVoteToEntry = async (req, res) => {
     const optionId = req.params.optionId;
     const pollId = req.params.pollId;
-    const updatedOption = await addVote(optionId, pollId);
-    if (!updatedOption) {
-      return res.status(500).send("error adding vote");
+    const result = await pollService.addVote(optionId, pollId);
+    if (result.success) {
+      return res.status(201).send(result.data);
     } else {
-      return res.status(201).send(updatedOption);
+      return res.status(400).send({
+        status: 400,
+        message: result.errorMessage
+      });
     }
   };
 
@@ -42,20 +45,15 @@ class PollsController {
         message: error.message
       });
     }
-    const newPoll = await addPoll(req.body);
-    if (newPoll) {
-      res.status(201).send(newPoll);
+    const result = await pollService.addPoll(req.body);
+    if (result.success) {
+      res.status(201).send(result.data);
     } else {
       res.status(500).send({
         errorCode: 500,
-        reason: "Error creating poll"
+        reason: result.errorMessage
       });
     }
-  };
-
-  getVotesForPoll = async (req, res) => {
-    const pollId = req.req.params.pollId;
-    // const pollWithVotes = await
   };
 }
 

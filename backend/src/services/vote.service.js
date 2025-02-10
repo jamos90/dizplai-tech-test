@@ -25,7 +25,7 @@ class VoteService {
             voteId: vote.voteId,
             optionId: vote.optionId,
             optionName: vote.optionName,
-            createdAt: vote.createdAt
+            createdAt: new Date(vote.createdAt).toISOString()
           }))
         };
       } else {

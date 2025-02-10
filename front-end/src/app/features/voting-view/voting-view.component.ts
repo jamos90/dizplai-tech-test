@@ -17,7 +17,7 @@ export class VotingViewComponent {
   constructor(private pollService: PollsService) {}
   poll: Poll;
   selectedOption: Option;
-  selectedOptionId: number;
+  selectedIndex: number;
 
   ngOnInit(): void {
     this.pollService.getAllPolls().subscribe(
@@ -28,8 +28,12 @@ export class VotingViewComponent {
   }
 
   updateSelectedEntry(index: number): void {
-    this.selectedOption = this.poll.options[index];
-    this.selectedOptionId = this.poll.options[index].id;
+    if (index === this.selectedIndex) {
+      this.selectedIndex = undefined;
+    } else {
+      this.selectedOption = this.poll.options[index];
+      this.selectedIndex = index;
+    }
   }
 
   showData(data: Poll): void {
@@ -39,7 +43,7 @@ export class VotingViewComponent {
   submitVote(): void {
     const voteData: VoteSubmit = {
       pollId: this.poll.id,
-      optionId: this.selectedOptionId
+      optionId: this.selectedOption.id
     };
     this.pollService.updatePollVotesById(voteData);
   }

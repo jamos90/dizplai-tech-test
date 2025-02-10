@@ -5,15 +5,15 @@
   place-items: center;
   border: 2px solid variables.$border-colour-white;
   border-radius: 4%;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
   background-color: rgba(255, 255, 255, 0.1);
   width: variables.$option-width;
   max-width: variables.$option-max-width;
   height: variables.$option-height;
   max-height: variables.$option-max-height;
 
-  .selected {
+  &.selected {
     background-color: variables.$interactive-hover-colour;
   }
 
