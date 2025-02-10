@@ -4,18 +4,18 @@ const VoteModel = require("../models/vote.model");
 const OptionModel = require("../models/option.model");
 
 class PollService {
-  async getAllPolls() {
+  async getActivePolls() {
     try {
-      const polls = PollModel.query()
+      const polls = await PollModel.query()
         .where("status", "active")
         .withGraphFetched("options");
-      return polls;
+      return this.createReturnObject(true, polls);
     } catch (err) {
-      console.error("Error fetch all polls", err);
-      return {
-        query: "All polls",
-        error: err
-      };
+      return createReturnObject(
+        false,
+        {},
+        "Error fetching poll with active status"
+      );
     }
   }
 
@@ -28,58 +28,88 @@ class PollService {
           return data;
         })
       });
-      return newPoll;
+      return {
+        success: true,
+        data: newPoll
+      };
     } catch (err) {
       console.log(err);
-      return false;
+      return {
+        success: false,
+        errorMessage: "Error adding new poll",
+        err
+      };
     }
   }
 
   async addVote(optionId, pollId) {
-    let updatedPoll;
-    //BUG need to check if option exits before adding to votes table;
+    let transactionOutcome;
     try {
       await VoteModel.transaction(async transaction => {
-        await VoteModel.query(transaction).insert({
-          option_id: optionId,
-          timestamp: new Date()
-        });
-
-        await OptionModel.query(transaction)
-          .where("id", optionId)
-          .increment("totalVotes", 1);
-
-        await PollModel.query(transaction)
-          .where("id", pollId)
-          .increment("totalVotes", 1);
-
-        updatedPoll = await PollModel.query(transaction)
-          .where("id", pollId)
-          .first()
-          .withGraphFetched("options");
+        console.log("this?", this);
+        const optionEntry = await this.queryForOptionByIdInTransaction(
+          transaction,
+          optionId
+        );
+        if (optionEntry.length > 0) {
+          const transactionData = await this.handleVoteAddTransaction(
+            transaction,
+            optionId,
+            pollId
+          );
+          transactionOutcome = this.createReturnObject(true, transactionData);
+        } else {
+          transactionOutcome = this.createReturnObject(
+            false,
+            {},
+            `no option with ${optionId} exits, unable to add a vote`
+          );
+        }
       });
-      return updatedPoll;
+      return transactionOutcome;
     } catch (err) {
-      console.error(`Error adding vote to option with ${optionId}`, err);
-      return false;
+      console.log(err);
+      return this.createReturnObject(
+        false,
+        {},
+        `Error adding vote to option with ${optionId}`
+      );
     }
   }
 
-  async getVotesForPoll(pollId) {
-    try {
-      const query = PollModel.transaction(async trx => {
-        PollModel.query()
-          .findById(pollId)
-          .withGraphFetched("options.votes");
-      });
+  async queryForOptionByIdInTransaction(transaction, optionId) {
+    return await OptionModel.query(transaction).where("id", optionId);
+  }
 
-      console.log("votes query", query);
-    } catch (err) {}
+  async handleVoteAddTransaction(transaction, optionId, pollId) {
+    await VoteModel.query(transaction).insert({
+      option_id: optionId,
+      timestamp: new Date()
+    });
+
+    await OptionModel.query(transaction)
+      .where("id", optionId)
+      .increment("totalVotes", 1);
+
+    await PollModel.query(transaction)
+      .where("id", pollId)
+      .increment("totalVotes", 1);
+
+    const updatedPoll = await PollModel.query(transaction)
+      .where("id", pollId)
+      .first()
+      .withGraphFetched("options");
+
+    return updatedPoll;
+  }
+
+  createReturnObject(successType, returnData = {}, returnedErrorMessage = "") {
+    return {
+      success: successType,
+      data: returnData ? returnData : {},
+      errorMessage: returnedErrorMessage ? returnedErrorMessage : ""
+    };
   }
 }
 
-module.exports = {
-  getAllPolls: PollService.prototype.getAllPolls,
-  addVote: PollService.prototype.addVote,
-  addPoll: PollService.prototype.addPoll
-};
+module.exports = new PollService();

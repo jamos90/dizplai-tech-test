@@ -57,8 +57,7 @@ async function createTables() {
 
     await knexInstance("options").insert([
       { name: "Manchester City", poll_id: poll.id, totalVotes: 0 },
-      { name: "Manchester United", poll_id: poll.id, totalVotes: 0 },
-      { name: "Chelsea", poll_id: poll.id, totalVotes: 0 }
+      { name: "Manchester United", poll_id: poll.id, totalVotes: 0 }
     ]);
   } catch (err) {
     console.error("Error creating one or more db tables", err);

@@ -7,8 +7,6 @@ router.get("/active", PollsController.getActivePoll);
 
 router.get("/", PollsController.getAllPolls);
 
-router.get("/:pollId/votes", PollsController.getVotesForPoll);
-
 router.get("/:id", PollsController.getPollById);
 
 router.post("/", PollsController.addSinglePoll);
