@@ -9,7 +9,7 @@ class VoteService {
         .joinRelated("option.poll")
         .where("option:poll.id", pollId)
         .select(
-          "votes.id as votedId",
+          "votes.id as voteId",
           "votes.timestamp as createdAt",
           "option.id as optionId",
           "option.name as optionName",
@@ -17,18 +17,23 @@ class VoteService {
           "option:poll.name as pollName"
         );
 
-      console.log("result", result);
-
-      return {
-        pollId: result[0].pollId,
-        question: result[0].pollName,
-        votes: result.map(vote => ({
-          voteId: vote.voteId,
-          optionId: vote.optionId,
-          optionName: vote.optionName,
-          createdAt: vote.createdAt
-        }))
-      };
+      if (result.length > 0) {
+        return {
+          pollId: result[0].pollId,
+          question: result[0].pollName,
+          votes: result.map(vote => ({
+            voteId: vote.voteId,
+            optionId: vote.optionId,
+            optionName: vote.optionName,
+            createdAt: vote.createdAt
+          }))
+        };
+      } else {
+        return {
+          operationOutcome: `No votes found for poll with id: ${pollId}`,
+          results: []
+        };
+      }
     } catch (err) {
       console.log(err);
     }
