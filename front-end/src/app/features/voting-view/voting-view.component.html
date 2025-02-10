@@ -1,4 +1,5 @@
 <div class="poll-view-container">
+  @if (poll) {
   <div class="poll-description">
     <span>{{ poll.description }}</span>
   </div>
@@ -13,6 +14,7 @@
     <p class="no-poll-text">No Active Poll found</p>
     }
   </div>
+  {{ selectedIndex }}
   <div>
     <button
       (click)="submitVote()"
@@ -22,4 +24,5 @@
       SUBMIT
     </button>
   </div>
+  }
 </div>

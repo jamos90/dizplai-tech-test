@@ -23,4 +23,25 @@
       margin: 1vh;
     }
   }
+
+  .button {
+    width: variables.$option-width;
+    max-width: variables.$option-max-width;
+    height: 10vh;
+    background-color: #ffffff;
+    color: variables.$secondary-test-colour;
+    font-family: variables.$primary-font-family;
+    font-size: 1.5rem;
+    border-radius: 5%;
+
+    &:hover {
+      cursor: pointer;
+      background-color: variables.$interactive-hover-colour;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+  }
 }

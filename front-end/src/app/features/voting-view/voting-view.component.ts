@@ -28,8 +28,12 @@ export class VotingViewComponent {
   }
 
   updateSelectedEntry(index: number): void {
-    this.selectedOption = this.poll.options[index];
-    this.selectedIndex = index;
+    if (index === this.selectedIndex) {
+      this.selectedIndex = undefined;
+    } else {
+      this.selectedOption = this.poll.options[index];
+      this.selectedIndex = index;
+    }
   }
 
   showData(data: Poll): void {

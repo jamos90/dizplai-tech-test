@@ -20,6 +20,12 @@
     }
   }
 
+  .poll-entry-container {
+    max-height: 60vh;
+    overflow: scroll;
+    margin-bottom: 5%;
+  }
+
   .submit-button {
     width: variables.$option-width;
     max-width: variables.$option-max-width;
