@@ -4,8 +4,6 @@ const VoteModel = require("../models/vote.model");
 const OptionModel = require("../models/option.model");
 
 class PollService {
-  //TODO:: add db logic when we have it set up
-
   async getAllPolls() {
     try {
       const polls = PollModel.query()
@@ -65,6 +63,18 @@ class PollService {
       console.error(`Error adding vote to option with ${optionId}`, err);
       return false;
     }
+  }
+
+  async getVotesForPoll(pollId) {
+    try {
+      const query = PollModel.transaction(async trx => {
+        PollModel.query()
+          .findById(pollId)
+          .withGraphFetched("options.votes");
+      });
+
+      console.log("votes query", query);
+    } catch (err) {}
   }
 }
 

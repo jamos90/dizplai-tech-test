@@ -24,7 +24,7 @@ class PollsController {
 
   addVoteToEntry = async (req, res) => {
     const optionId = req.params.optionId;
-    const pollId = req.params.poolId;
+    const pollId = req.params.pollId;
     const updatedOption = await addVote(optionId, pollId);
     if (!updatedOption) {
       return res.status(500).send("error adding vote");
@@ -51,6 +51,11 @@ class PollsController {
         reason: "Error creating poll"
       });
     }
+  };
+
+  getVotesForPoll = async (req, res) => {
+    const pollId = req.req.params.pollId;
+    // const pollWithVotes = await
   };
 }
 
