@@ -9,6 +9,8 @@ router.get("/", PollsController.getAllPolls);
 
 router.get("/:id", PollsController.getPollById);
 
+router.post("/polls", PollsController.addSinglePoll);
+
 router.put("/:poolId/:optionId/vote", PollsController.addVoteToEntry);
 
 router.put("/:id", (req, res) => {

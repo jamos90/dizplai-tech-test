@@ -1,6 +1,6 @@
 const mockData = require("../data/polls.json");
 const pollValidation = require("../validations/poll.validations");
-const { getAllPolls, addVote } = require("../services/polls.service");
+const { getAllPolls, addVote, addPoll } = require("../services/polls.service");
 
 class PollsController {
   getActivePoll = async (req, res) => {
@@ -45,8 +45,12 @@ class PollsController {
         message: error.message
       });
     }
-    // mockData.polls.push(req.body);
-    res.json(mockData);
+    const newPoll = await addPoll(req.body);
+    if (newPoll) {
+      res.status(201).send(newPoll);
+    } else {
+      res.status(500).send("somethings gone wrong");
+    }
   };
 }
 

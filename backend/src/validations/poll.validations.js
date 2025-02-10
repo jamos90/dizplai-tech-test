@@ -11,7 +11,7 @@ const schema = Joi.object({
   totalVotes: Joi.number()
     .required()
     .default(0),
-  entries: Joi.array()
+  options: Joi.array()
     .required()
     .min(2)
     .max(7)

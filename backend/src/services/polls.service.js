@@ -21,6 +21,25 @@ class PollService {
     }
   }
 
+  async addPoll(pollData) {
+    try {
+      const pollOptions = pollData.options;
+      // console.log(pollData);
+      // console.log(pollData.options);
+      const newPoll = await PollModel.query().insertGraphAndFetch({
+        ...pollData,
+        options: pollOptions.map(data => {
+          return data;
+        })
+      });
+      console.log(newPoll);
+      return newPoll;
+    } catch (err) {
+      console.log(err);
+      return false;
+    }
+  }
+
   async addVote(optionId, pollId) {
     let updatedPoll;
     //BUG need to check if option exits before adding to votes table;
@@ -43,8 +62,6 @@ class PollService {
           .where("id", pollId)
           .first()
           .withGraphFetched("options");
-
-        console.log("updated option", updatedPoll);
       });
       return updatedPoll;
     } catch (err) {
@@ -56,5 +73,6 @@ class PollService {
 
 module.exports = {
   getAllPolls: PollService.prototype.getAllPolls,
-  addVote: PollService.prototype.addVote
+  addVote: PollService.prototype.addVote,
+  addPoll: PollService.prototype.addPoll
 };
