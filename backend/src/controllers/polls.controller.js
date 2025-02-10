@@ -26,7 +26,6 @@ class PollsController {
     const optionId = req.params.optionId;
     const pollId = req.params.poolId;
     const updatedOption = await addVote(optionId, pollId);
-    console.log(updatedOption);
     if (!updatedOption) {
       return res.status(500).send("error adding vote");
     } else {
@@ -35,12 +34,10 @@ class PollsController {
   };
 
   addSinglePoll = async (req, res) => {
-    console.log(req.body);
     const { error } = pollValidation(req.body);
     if (error) {
-      console.log(error);
-      return res.status(500).send({
-        errorCode: 500,
+      return res.status(422).send({
+        errorCode: 422,
         reason: "Invalid Request Body",
         message: error.message
       });
@@ -49,7 +46,10 @@ class PollsController {
     if (newPoll) {
       res.status(201).send(newPoll);
     } else {
-      res.status(500).send("somethings gone wrong");
+      res.status(500).send({
+        errorCode: 500,
+        reason: "Error creating poll"
+      });
     }
   };
 }
