@@ -24,15 +24,12 @@ class PollService {
   async addPoll(pollData) {
     try {
       const pollOptions = pollData.options;
-      // console.log(pollData);
-      // console.log(pollData.options);
       const newPoll = await PollModel.query().insertGraphAndFetch({
         ...pollData,
         options: pollOptions.map(data => {
           return data;
         })
       });
-      console.log(newPoll);
       return newPoll;
     } catch (err) {
       console.log(err);
