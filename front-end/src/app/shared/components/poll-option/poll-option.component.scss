@@ -1,14 +1,17 @@
 @use "_variables.scss" as variables;
 
 .poll-entry-container {
+  display: grid;
+  place-items: center;
   border: 2px solid variables.$border-colour-white;
   border-radius: 4%;
   margin-top: 1rem;
   margin-bottom: 1rem;
   background-color: rgba(255, 255, 255, 0.1);
-  width: 20rem;
-  display: grid;
-  place-items: center;
+  width: variables.$option-width;
+  max-width: variables.$option-max-width;
+  height: variables.$option-height;
+  max-height: variables.$option-max-height;
 
   .selected {
     background-color: variables.$interactive-hover-colour;

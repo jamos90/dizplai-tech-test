@@ -6,7 +6,7 @@
 
   .results-headers {
     height: 10vh;
-    width: 20rem;
+    width: 100vw;
     margin-bottom: 1%;
     display: grid;
     place-content: center;
@@ -15,10 +15,12 @@
       color: variables.$primary-text-colour;
       font-family: variables.$primary-font-family;
       font-size: 2rem;
+      margin: 0;
     }
 
     .header:last-of-type {
       font-weight: bold;
+      margin: 1vh;
     }
   }
 }
