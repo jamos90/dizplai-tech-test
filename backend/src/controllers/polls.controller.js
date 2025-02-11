@@ -59,7 +59,7 @@ class PollsController {
     } else {
       res.status(500).send({
         errorCode: 500,
-        reason: result.errorMessage
+        message: result.errorMessage
       });
     }
   };
