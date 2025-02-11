@@ -7,7 +7,9 @@ const schema = Joi.object({
   description: Joi.string()
     .required()
     .min(1),
-  status: Joi.string().required(),
+  status: Joi.string()
+    .required()
+    .valid("inactive"),
   totalVotes: Joi.number()
     .required()
     .default(0),

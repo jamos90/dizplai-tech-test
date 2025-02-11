@@ -1,9 +1,17 @@
-const dbInstance = require("../db/db-connection");
 const PollModel = require("../models/poll.model");
 const VoteModel = require("../models/vote.model");
 const OptionModel = require("../models/option.model");
 
 class PollService {
+  async getAllPolls() {
+    try {
+      const polls = await PollModel.query().withGraphFetched("options");
+      return this.createReturnObject(true, polls);
+    } catch (err) {
+      return this.createReturnObject(false, {}, "error fetching all polls");
+    }
+  }
+
   async getActivePolls() {
     try {
       const polls = await PollModel.query()
@@ -37,11 +45,10 @@ class PollService {
 
       return result;
     } catch (err) {
-      console.log(err);
       return this.createReturnObject(
         false,
         {},
-        `Error searching for Poll with id ${pollId}`
+        `Error searching for Poll with id ${pollId}: ${err}`
       );
     }
   }
@@ -60,10 +67,9 @@ class PollService {
         data: newPoll
       };
     } catch (err) {
-      console.log(err);
       return {
         success: false,
-        errorMessage: "Error adding new poll",
+        errorMessage: `Error adding new poll ${err}`,
         err
       };
     }
@@ -73,7 +79,6 @@ class PollService {
     let transactionOutcome;
     try {
       await VoteModel.transaction(async transaction => {
-        console.log("this?", this);
         const optionEntry = await this.queryForOptionByIdInTransaction(
           transaction,
           optionId
@@ -95,11 +100,33 @@ class PollService {
       });
       return transactionOutcome;
     } catch (err) {
-      console.log(err);
       return this.createReturnObject(
         false,
         {},
-        `Error adding vote to option with ${optionId}`
+        `Error adding vote to option with ${optionId} ${err}`
+      );
+    }
+  }
+
+  async setPollAsActive(pollId) {
+    let updatedPoll;
+    try {
+      await PollModel.transaction(async trx => {
+        await PollModel.query(trx)
+          .where("status", "active")
+          .patch({
+            status: "inactive"
+          });
+        updatedPoll = await PollModel.query(trx).patchAndFetchById(pollId, {
+          status: "active"
+        });
+      });
+      return this.createReturnObject(true, updatedPoll);
+    } catch (err) {
+      return this.createReturnObject(
+        false,
+        {},
+        `error updating poll ${pollId} status to active ${err}`
       );
     }
   }

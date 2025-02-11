@@ -21,7 +21,7 @@ export class VotingViewComponent {
   selectedIndex: number;
 
   ngOnInit(): void {
-    this.pollService.getAllPolls().subscribe(
+    this.pollService.getActivePoll().subscribe(
       (data: Poll[]) => this.showData(data),
       (err: any) => console.error(err),
       () => console.log('finished getting data')
@@ -39,6 +39,7 @@ export class VotingViewComponent {
   }
 
   showData(data: Poll[]): void {
+    console.log(data);
     this.poll = data[0];
   }
 

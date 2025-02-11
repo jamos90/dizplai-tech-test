@@ -14,7 +14,7 @@ async function createTables() {
       table
         .string("status")
         .notNullable()
-        .defaultTo("active");
+        .defaultTo("inactive");
       table.text("description").nullable();
     });
 
