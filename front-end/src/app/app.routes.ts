@@ -3,6 +3,7 @@ import { VotingViewComponent } from './features/voting-view/voting-view.componen
 import { ResultsViewComponent } from './features/results-view/results-view.component';
 
 export const routes: Routes = [
+  { path: '', redirectTo: '/polls/active', pathMatch: 'full' },
   { path: 'polls/active', component: VotingViewComponent },
   { path: 'polls/:pollId/result', component: ResultsViewComponent }
 ];
