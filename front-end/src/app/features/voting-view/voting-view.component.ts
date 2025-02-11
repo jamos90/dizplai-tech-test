@@ -31,6 +31,7 @@ export class VotingViewComponent {
   updateSelectedEntry(index: number): void {
     if (index === this.selectedIndex) {
       this.selectedIndex = undefined;
+      this.selectedOption = undefined;
     } else {
       this.selectedOption = this.poll.options[index];
       this.selectedIndex = index;
