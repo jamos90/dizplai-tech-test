@@ -4,7 +4,9 @@ Introduction
 
 A small Angular, Node and sqlite application designed to allow users to vote on an active poll and see the results.
 
-Front end: Build using Angular standalone components
+Front end: Built using `Angular Typescript` standalone components to minimize bundle size as this is a small application modules were not required. It uses `.scss` files for styling. Business is housed in services to be reusable and keep it out of the components. Re-suable components are used for repeating code, for example `poll-options`
+
+Back end: Built using `NodeJs` `JavaScript`, `Express`, `sqlLite DB` and `Objection ORM`. Sqlite and objection where chosen because they are both light weight and perform all necessary operations for the application in it's current state. Objection allows db queries to be easier and safer to write. Express was chosen as it is a well know framework and comes with useful middleware that help efficiently set up an application.
 
 Assumptions:
 
@@ -59,6 +61,7 @@ Validation: Active on endpoint, will return a `422` if validation failed for exa
 ReturnValue: `201 { new Poll }`
 validation rules can be found at `./backend/src/validations/poll.validations.js`
 OnError: `500 [Error details]`
+Sample Body: `./backend/src/data/sample-valid-poll.json`
 
 Vote on a poll:
 Method: PUT
