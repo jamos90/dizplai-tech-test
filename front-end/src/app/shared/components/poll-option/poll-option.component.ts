@@ -15,8 +15,6 @@ export class PollOptionComponent {
   isActive: boolean = false;
 
   vote() {
-    console.log('voting');
-    this.isActive = true;
     this.countVote.emit(this.entryTitle);
   }
 }
