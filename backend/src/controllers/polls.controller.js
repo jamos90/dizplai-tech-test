@@ -2,13 +2,19 @@ const pollValidation = require("../validations/poll.validations");
 const pollService = require("../services/polls.service.js");
 
 class PollsController {
-  getActivePoll = async (req, res) => {
-    res.json({
-      status: "active"
-    });
+  getAllPolls = async (req, res) => {
+    const result = await pollService.getAllPolls();
+    if (result.success) {
+      res.status(200).send(result.data);
+    } else {
+      res.status(500).send({
+        status: 500,
+        message: result.errorMessage
+      });
+    }
   };
 
-  getAllPolls = async (req, res) => {
+  getActivePoll = async (req, res) => {
     const result = await pollService.getActivePolls();
     if (result.success) {
       res.status(200).send(result.data);
@@ -61,6 +67,16 @@ class PollsController {
         errorCode: 500,
         message: result.errorMessage
       });
+    }
+  };
+
+  markPollAsActive = async (req, res) => {
+    const pollId = req.params.pollId;
+    const result = await pollService.setPollAsActive(pollId);
+    if (result.success) {
+      res.status(200).send(result.data);
+    } else {
+      res.status(500).send(result.errorMessage);
     }
   };
 }

@@ -17,4 +17,6 @@ router.put("/:id", (req, res) => {});
 
 router.post("/", PollsController.addSinglePoll);
 
+router.put("/:pollId/activate", PollsController.markPollAsActive);
+
 module.exports = router;
