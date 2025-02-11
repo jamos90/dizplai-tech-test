@@ -20,7 +20,10 @@ class PollsController {
     }
   };
 
-  getPollById = async (req, res) => {};
+  getPollById = async (req, res) => {
+    const pollId = req.params.pollId;
+    const result = await pollService.getPollById(pollId);
+  };
 
   addVoteToEntry = async (req, res) => {
     const optionId = req.params.optionId;

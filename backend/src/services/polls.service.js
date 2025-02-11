@@ -19,6 +19,30 @@ class PollService {
     }
   }
 
+  async getPollById(pollId) {
+    let result;
+    try {
+      const foundPoll = await PollModel.query().where("id", pollId);
+      if (foundPoll.length > 0) {
+        result = createReturnObject(true, foundPoll);
+      } else {
+        result = createReturnObject(
+          false,
+          {},
+          `No poll with found id: ${pollId}`
+        );
+      }
+
+      return result;
+    } catch (err) {
+      return createReturnObject(
+        false,
+        {},
+        `Error searching for Poll with id ${pollId}`
+      );
+    }
+  }
+
   async addPoll(pollData) {
     try {
       const pollOptions = pollData.options;
