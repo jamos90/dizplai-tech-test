@@ -22,11 +22,13 @@ class PollService {
   async getPollById(pollId) {
     let result;
     try {
-      const foundPoll = await PollModel.query().where("id", pollId);
+      const foundPoll = await PollModel.query()
+        .where("id", pollId)
+        .withGraphFetched("options");
       if (foundPoll.length > 0) {
-        result = createReturnObject(true, foundPoll);
+        result = this.createReturnObject(true, foundPoll);
       } else {
-        result = createReturnObject(
+        result = this.createReturnObject(
           false,
           {},
           `No poll with found id: ${pollId}`
@@ -35,7 +37,8 @@ class PollService {
 
       return result;
     } catch (err) {
-      return createReturnObject(
+      console.log(err);
+      return this.createReturnObject(
         false,
         {},
         `Error searching for Poll with id ${pollId}`
