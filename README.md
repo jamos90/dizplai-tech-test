@@ -6,13 +6,13 @@ A small Angular, Node and sqlite application designed to allow users to vote on 
 
 Front end: Built using `Angular Typescript` standalone components to minimize bundle size as this is a small application modules were not required. It uses `.scss` files for styling. Business is housed in services to be reusable and keep it out of the components. Re-suable components are used for repeating code, for example `poll-options`
 
-Back end: Built using `NodeJs` `JavaScript`, `Express`, `sqlLite DB` and `Objection ORM`. Sqlite and objection where chosen because they are both light weight and perform all necessary operations for the application in it's current state. Objection allows db queries to be easier and safer to write. Express was chosen as it is a well know framework and comes with useful middleware that help efficiently set up an application.
+Back end: Built using `NodeJs` `JavaScript`, `Express`, `sqlLite DB` and `Objection ORM`. Sqlite and objection where chosen because they are both light weight and perform all necessary operations for the application in it's current state. Objection allows db queries to be easier and safer to write. Express was chosen as it is a well know framework and comes with useful middleware that help efficiently set up an application. Database has the following tables, Polls, Options and Votes. Polls can have many Options and Options can have one Poll (poll_id). Options can have multiple votes and Votes have a single option (option_id).
 
 Assumptions:
 
-1. There can only be one active poll at a time,
-2. Users can vote more than once (would implement stricter checks in future)
-3. Person pulling pull down repository has Angular CLI on local machine
+1. There can only be one active poll at a time. A user has to manually update a poll to active through the API.
+2. Users can vote more than once. Could implement stricter checks in future.
+3. Person pulling pull down repository has Angular CLI on local machine.
 
 Known issues / Limitations
 
@@ -23,7 +23,7 @@ Installation
 
 1. Clone the repository from https://github.com/jamos90/dizplai-tech-test
 2. At the root of the project there is a run.sh script that will install required dependencies and start both instances.
-3. Alternatively you can open two terminal windows or tabs, in one `cd` into the front-end folder, run `npm i` to install dependencies and then in the second window / tab `cd` into backend folder, run `npm i` to install dependencies and `nodemon server.js` to start backend server.
+3. Alternatively you can open two terminal windows or tabs, in one `cd` into the front-end folder, run `npm i` to install dependencies and then `ng serve` to start the front end application. Then in the second window / tab `cd` into backend folder, run `npm i` to install dependencies and `nodemon server.js` to start backend server.
 4. On start up the backend will create an sqlite db and seed it with one poll.
 5. Once front end has started navigate to `http://localhost:4200/polls/active` to see the current active poll
 
