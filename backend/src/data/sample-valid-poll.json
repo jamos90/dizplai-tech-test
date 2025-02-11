@@ -1,0 +1,24 @@
+{
+  "name": "NBA Poll",
+  "totalVotes": 0,
+  "status": "inactive",
+  "description": "Who will win the NBA championship",
+  "options": [
+    {
+      "name": "Toronto Raptors",
+      "totalVotes": 0
+    },
+    {
+      "name": "Boston Celtics",
+      "totalVotes": 0
+    },
+    {
+      "name": "La Lakers",
+      "totalVotes": 0
+    },
+    {
+      "name": "Dallas Mavericks",
+      "totalVotes": 0
+    }
+  ]
+}
