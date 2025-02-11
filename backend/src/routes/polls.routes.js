@@ -13,9 +13,7 @@ router.post("/", PollsController.addSinglePoll);
 
 router.put("/:pollId/:optionId/vote", PollsController.addVoteToEntry);
 
-router.put("/:id", (req, res) => {
-  //update a specific poll
-});
+router.put("/:id", (req, res) => {});
 
 router.post("/", PollsController.addSinglePoll);
 

@@ -29,12 +29,31 @@ describe('PollOptionComponent', () => {
     expect(title.textContent).toBe('Test');
   });
 
+  it('should display default message if no title is passed', () => {
+    component.entryTitle = undefined;
+    fixture.detectChanges();
+    const title = fixture.debugElement.query(By.css('.entry-name'))
+      .nativeElement;
+    expect(title.textContent).toBe('no title found');
+  });
+
   it('should emit an event countVote', () => {
+    component.entryTitle = 'test';
     spyOn(component.countVote, 'emit');
     const voteElement = fixture.debugElement.query(
       By.css('.poll-entry-container')
     ).nativeElement;
     voteElement.click();
     expect(component.countVote.emit).toHaveBeenCalled();
+  });
+
+  it('should not emit an event countVote if entry title is undefined', () => {
+    component.entryTitle = undefined;
+    spyOn(component.countVote, 'emit');
+    const voteElement = fixture.debugElement.query(
+      By.css('.poll-entry-container')
+    ).nativeElement;
+    voteElement.click();
+    expect(component.countVote.emit).not.toHaveBeenCalled();
   });
 });

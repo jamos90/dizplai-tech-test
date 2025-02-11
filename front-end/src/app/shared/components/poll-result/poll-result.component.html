@@ -1,6 +1,9 @@
 <div class="poll-result-container">
   <div class="progress-bar-container">
-    <span>{{ option.name }} {{ percentageOfTotalVotes }}% </span>
+    <span
+      >{{ option.name ?? "no name provided" }}
+      {{ percentageOfTotalVotes ?? 0 }}%
+    </span>
     <div class="progress-bar" [style.width.%]="percentageOfTotalVotes"></div>
   </div>
 </div>
