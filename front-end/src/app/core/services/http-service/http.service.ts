@@ -17,8 +17,7 @@ export class HttpService {
     });
   }
 
-  put(endPoint: string, body: VoteSubmit) {
-    console.log('http service', `${this.apiBase}/${endPoint}`);
+  put(endPoint: string, body: any) {
     return this.httpClient.put(`${this.apiBase}/${endPoint}`, body, {
       headers: { 'Content-Type': 'application/json' }
     });
