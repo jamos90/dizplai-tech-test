@@ -8,7 +8,7 @@ describe('PollsService', () => {
   let httpServiceSpy: jasmine.SpyObj<HttpService>;
 
   beforeEach(() => {
-    const spy = jasmine.createSpyObj('HttpService', ['get', 'post']);
+    const spy = jasmine.createSpyObj('HttpService', ['get', 'put']);
 
     TestBed.configureTestingModule({
       providers: [PollsService, { provide: HttpService, useValue: spy }]
@@ -43,9 +43,18 @@ describe('PollsService', () => {
       totalVotes: 0,
       options: []
     };
+
+    const mockVoteObject = { pollId: 1, optionId: 1 };
     httpServiceSpy.put.and.returnValue(of(mockPoll));
 
-    service.updatePollVotesById({ optionId: 1, pollId: 1 }).subscribe();
-    // expect(httpServiceSpy.get).toHaveBeenCalledOnceWith({});
+    service.updatePollVotesById({ optionId: 1, pollId: 1 }).subscribe(data => {
+      expect(httpServiceSpy.put).toHaveBeenCalledOnceWith(
+        `polls/${mockVoteObject.pollId}/${mockVoteObject.optionId}/vote`,
+        {
+          optionId: 1,
+          pollId: 1
+        }
+      );
+    });
   });
 });
