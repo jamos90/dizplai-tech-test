@@ -22,13 +22,15 @@ describe('PollsService', () => {
   });
 
   it('should get data from http service', () => {
-    const mockPoll = {
-      id: 1,
-      name: 'test',
-      description: 'est-poll',
-      totalVotes: 0,
-      options: []
-    };
+    const mockPoll = [
+      {
+        id: 1,
+        name: 'test',
+        description: 'est-poll',
+        totalVotes: 0,
+        options: []
+      }
+    ];
     httpServiceSpy.get.and.returnValue(of(mockPoll));
 
     service.getAllPolls().subscribe(data => expect(data).toEqual(mockPoll));

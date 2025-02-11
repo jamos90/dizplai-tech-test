@@ -10,7 +10,7 @@ import { Poll } from '../../../models/polls/poll.model';
 export class PollsService {
   constructor(private httpService: HttpService) {}
 
-  public getAllPolls(): Observable<Poll> {
+  public getAllPolls(): Observable<Poll[]> {
     const data = this.httpService.get('polls');
     return data;
   }

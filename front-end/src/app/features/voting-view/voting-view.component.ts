@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { VoteSubmit } from '../../models/polls/vote-submit.model';
 import { Poll } from '../../models/polls/poll.model';
 import { Option } from '../../models/polls/option.model';
-import { DataService } from '../../core/services/data-service/data.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,18 +15,14 @@ import { Router } from '@angular/router';
   styleUrl: './voting-view.component.scss'
 })
 export class VotingViewComponent {
-  constructor(
-    private pollService: PollsService,
-    private dataService: DataService,
-    private router: Router
-  ) {}
+  constructor(private pollService: PollsService, private router: Router) {}
   poll: Poll;
   selectedOption: Option;
   selectedIndex: number;
 
   ngOnInit(): void {
     this.pollService.getAllPolls().subscribe(
-      (data: Poll) => this.showData(data),
+      (data: Poll[]) => this.showData(data),
       (err: any) => console.error(err),
       () => console.log('finished getting data')
     );
@@ -42,7 +37,7 @@ export class VotingViewComponent {
     }
   }
 
-  showData(data: Poll): void {
+  showData(data: Poll[]): void {
     this.poll = data[0];
   }
 
