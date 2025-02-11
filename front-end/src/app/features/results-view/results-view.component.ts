@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { PollResultComponent } from '../../shared/components/poll-result/poll-result.component';
-import { DataService } from '../../core/services/data-service/data.service';
 import { Poll } from '../../models/polls/poll.model';
+import { PollsService } from '../../core/services/polls-service/polls.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-results-view',
@@ -10,69 +11,31 @@ import { Poll } from '../../models/polls/poll.model';
   styleUrl: './results-view.component.scss'
 })
 export class ResultsViewComponent {
-  constructor(private dataService: DataService) {}
+  constructor(
+    private pollService: PollsService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
   poll: Poll;
-  data = {
-    name: 'premier-league-pool',
-    totalVotes: 7,
-    options: [
-      {
-        name: 'Man City',
-        voteCount: 4,
-        votes: [
-          {
-            id: '1',
-            timeStamp: new Date().toISOString()
-          },
-          {
-            id: '2',
-            timeStamp: new Date().toISOString()
-          },
-          {
-            id: '3',
-            timeStamp: new Date().toISOString()
-          },
-          {
-            id: '4',
-            timeStamp: new Date().toISOString()
-          }
-        ]
-      },
-      {
-        name: 'Man U',
-        voteCount: 3,
-        votes: [
-          {
-            id: '1',
-            timeStamp: new Date().toISOString()
-          },
-          {
-            id: '2',
-            timeStamp: new Date().toISOString()
-          },
-          {
-            id: '3',
-            timeStamp: new Date().toISOString()
-          }
-        ]
-      }
-    ]
-  };
+  pollId: String;
 
   ngOnInit(): void {
-    this.dataService.getData().subscribe(
-      (data: Poll) => this.handleSuccessCase(data),
-      (err: Error) => this.handleErrorCase(err),
-      () => console.log('Data fetched')
+    this.route.paramMap.subscribe(params => {
+      this.pollId = params.get('pollId');
+      this.fetchData(this.pollId);
+    });
+  }
+
+  fetchData(pollId) {
+    console.log(pollId);
+    this.pollService.getPollById(pollId).subscribe(
+      (poll: Poll) => (this.poll = poll[0]),
+      err => console.log(`Error fetching poll with id ${pollId}`, err),
+      () => 'Finished fetching poll by id'
     );
   }
 
-  handleErrorCase(err: Error): void {
-    console.error('Error fetching updated poll from service', err.message);
-  }
-
-  handleSuccessCase(data: Poll): void {
-    console.log(data);
-    this.poll = data;
+  returnToVoteScreen() {
+    this.router.navigate(['polls/active']);
   }
 }

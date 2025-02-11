@@ -16,7 +16,7 @@ export class PollsService {
   }
 
   public getPollById(pollId): Observable<Poll> {
-    return this.httpService.get(`polls/$${pollId}`);
+    return this.httpService.get(`polls/${pollId}`);
   }
 
   public updatePollVotesById(requestBody: VoteSubmit): Observable<Object> {
@@ -24,6 +24,7 @@ export class PollsService {
       `polls/${requestBody.pollId}/${requestBody.optionId}/vote`,
       requestBody
     );
+    console.log('updated poll', updatedPoll);
     return updatedPoll;
   }
 }

@@ -3,6 +3,7 @@
     <p class="header">Thank you for</p>
     <p class="header">your response</p>
   </div>
+  @if (poll) {
   <div class="results-container">
     @for (option of poll.options; track option.name; let i = $index) {
     <app-poll-result
@@ -11,7 +12,11 @@
     ></app-poll-result>
     }
   </div>
+
+  }
   <div class="button-container">
-    <button class="button">Back to voting</button>
+    <button (click)="returnToVoteScreen()" class="button">
+      Back to voting
+    </button>
   </div>
 </div>
