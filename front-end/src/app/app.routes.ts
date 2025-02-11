@@ -4,5 +4,5 @@ import { ResultsViewComponent } from './features/results-view/results-view.compo
 
 export const routes: Routes = [
   { path: 'polls/active', component: VotingViewComponent },
-  { path: 'polls/active/result', component: ResultsViewComponent }
+  { path: 'polls/:pollId/result', component: ResultsViewComponent }
 ];
