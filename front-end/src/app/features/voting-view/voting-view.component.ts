@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { VoteSubmit } from '../../models/polls/vote-submit.model';
 import { Poll } from '../../models/polls/poll.model';
 import { Option } from '../../models/polls/option.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-voting-view',
@@ -14,14 +15,14 @@ import { Option } from '../../models/polls/option.model';
   styleUrl: './voting-view.component.scss'
 })
 export class VotingViewComponent {
-  constructor(private pollService: PollsService) {}
+  constructor(private pollService: PollsService, private router: Router) {}
   poll: Poll;
   selectedOption: Option;
   selectedIndex: number;
 
   ngOnInit(): void {
     this.pollService.getAllPolls().subscribe(
-      (data: Poll) => this.showData(data),
+      (data: Poll[]) => this.showData(data),
       (err: any) => console.error(err),
       () => console.log('finished getting data')
     );
@@ -36,7 +37,7 @@ export class VotingViewComponent {
     }
   }
 
-  showData(data: Poll): void {
+  showData(data: Poll[]): void {
     this.poll = data[0];
   }
 
@@ -45,6 +46,14 @@ export class VotingViewComponent {
       pollId: this.poll.id,
       optionId: this.selectedOption.id
     };
-    this.pollService.updatePollVotesById(voteData);
+    this.pollService.updatePollVotesById(voteData).subscribe(
+      (UpdatedPoll: Poll) => this.navigateToResults(UpdatedPoll),
+      err => console.log('error getting updated poll', err),
+      () => console.log('Observable complete')
+    );
+  }
+
+  navigateToResults(updatedPoll: Poll): void {
+    this.router.navigate([`/polls/${updatedPoll.id}/result`]);
   }
 }

@@ -19,6 +19,33 @@ class PollService {
     }
   }
 
+  async getPollById(pollId) {
+    let result;
+    try {
+      const foundPoll = await PollModel.query()
+        .where("id", pollId)
+        .withGraphFetched("options");
+      if (foundPoll.length > 0) {
+        result = this.createReturnObject(true, foundPoll);
+      } else {
+        result = this.createReturnObject(
+          false,
+          {},
+          `No poll with found id: ${pollId}`
+        );
+      }
+
+      return result;
+    } catch (err) {
+      console.log(err);
+      return this.createReturnObject(
+        false,
+        {},
+        `Error searching for Poll with id ${pollId}`
+      );
+    }
+  }
+
   async addPoll(pollData) {
     try {
       const pollOptions = pollData.options;

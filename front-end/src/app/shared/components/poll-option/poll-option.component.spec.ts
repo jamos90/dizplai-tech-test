@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PollOptionComponent } from './poll-option.component';
+import { By } from '@angular/platform-browser';
 
 describe('PollOptionComponent', () => {
   let component: PollOptionComponent;
@@ -9,8 +10,7 @@ describe('PollOptionComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [PollOptionComponent]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PollOptionComponent);
     component = fixture.componentInstance;
@@ -19,5 +19,22 @@ describe('PollOptionComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should display input data', () => {
+    component.entryTitle = 'Test';
+    fixture.detectChanges();
+    const title = fixture.debugElement.query(By.css('.entry-name'))
+      .nativeElement;
+    expect(title.textContent).toBe('Test');
+  });
+
+  it('should emit an event countVote', () => {
+    spyOn(component.countVote, 'emit');
+    const voteElement = fixture.debugElement.query(
+      By.css('.poll-entry-container')
+    ).nativeElement;
+    voteElement.click();
+    expect(component.countVote.emit).toHaveBeenCalled();
   });
 });
