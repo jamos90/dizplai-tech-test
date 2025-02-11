@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { VoteSubmit } from '../../models/polls/vote-submit.model';
 import { Poll } from '../../models/polls/poll.model';
 import { Option } from '../../models/polls/option.model';
+import { DataService } from '../../core/services/data-service/data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-voting-view',
@@ -14,7 +16,11 @@ import { Option } from '../../models/polls/option.model';
   styleUrl: './voting-view.component.scss'
 })
 export class VotingViewComponent {
-  constructor(private pollService: PollsService) {}
+  constructor(
+    private pollService: PollsService,
+    private dataService: DataService,
+    private router: Router
+  ) {}
   poll: Poll;
   selectedOption: Option;
   selectedIndex: number;
@@ -45,6 +51,14 @@ export class VotingViewComponent {
       pollId: this.poll.id,
       optionId: this.selectedOption.id
     };
-    this.pollService.updatePollVotesById(voteData);
+    this.pollService.updatePollVotesById(voteData).subscribe(
+      (UpdatedPoll: Poll) => this.navigateToResults(UpdatedPoll),
+      err => console.log('error getting updated poll', err),
+      () => console.log('Observable complete')
+    );
+  }
+
+  navigateToResults(updatedPoll: Poll): void {
+    this.router.navigate([`/polls/${updatedPoll.id}/result`]);
   }
 }
