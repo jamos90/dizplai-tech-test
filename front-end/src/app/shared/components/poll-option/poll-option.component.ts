@@ -15,6 +15,8 @@ export class PollOptionComponent {
   isActive: boolean = false;
 
   vote() {
-    this.countVote.emit(this.entryTitle);
+    if (this.entryTitle) {
+      this.countVote.emit(this.entryTitle);
+    }
   }
 }

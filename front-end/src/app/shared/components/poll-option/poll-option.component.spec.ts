@@ -38,11 +38,22 @@ describe('PollOptionComponent', () => {
   });
 
   it('should emit an event countVote', () => {
+    component.entryTitle = 'test';
     spyOn(component.countVote, 'emit');
     const voteElement = fixture.debugElement.query(
       By.css('.poll-entry-container')
     ).nativeElement;
     voteElement.click();
     expect(component.countVote.emit).toHaveBeenCalled();
+  });
+
+  it('should not emit an event countVote if entry title is undefined', () => {
+    component.entryTitle = undefined;
+    spyOn(component.countVote, 'emit');
+    const voteElement = fixture.debugElement.query(
+      By.css('.poll-entry-container')
+    ).nativeElement;
+    voteElement.click();
+    expect(component.countVote.emit).not.toHaveBeenCalled();
   });
 });
