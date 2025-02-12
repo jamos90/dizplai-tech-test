@@ -39,7 +39,6 @@ export class VotingViewComponent {
   }
 
   showData(data: Poll[]): void {
-    console.log(data);
     this.poll = data[0];
   }
 

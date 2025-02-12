@@ -1,0 +1,12 @@
+@use "_variables.scss" as variables;
+
+.page-not-found-container {
+  color: variables.$primary-text-colour;
+  font-family: variables.$primary-font-family;
+  display: grid;
+  place-items: center;
+
+  .home-link:hover {
+    cursor: pointer;
+  }
+}
