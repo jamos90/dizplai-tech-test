@@ -5,7 +5,7 @@ describe("Poll Validation Schema", () => {
     const validPoll = {
       name: "Sample Poll",
       description: "A test poll",
-      status: "active",
+      status: "inactive",
       totalVotes: 0,
       options: [
         { name: "Option 1", totalVotes: 0 },
@@ -22,7 +22,7 @@ describe("Poll Validation Schema", () => {
     const validPoll = {
       name: "Sample Poll",
       description: "A test poll",
-      status: "active",
+      status: "inactive",
       totalVotes: 0,
       options: [{ name: "Option 1", totalVotes: 0 }]
     };
@@ -39,7 +39,7 @@ describe("Poll Validation Schema", () => {
     const validPoll = {
       name: "Sample Poll",
       description: "A test poll",
-      status: "active",
+      status: "inactive",
       totalVotes: 0,
       options: Array(8).fill({ name: "Option", totalVotes: 0 })
     };
@@ -56,7 +56,7 @@ describe("Poll Validation Schema", () => {
     const validPoll = {
       name: "",
       description: "test",
-      status: "active",
+      status: "inactive",
       totalVotes: 0,
       options: Array(2).fill({ name: "Option", totalVotes: 0 })
     };
@@ -74,7 +74,7 @@ describe("Poll Validation Schema", () => {
     const validPoll = {
       name: "test",
       description: "",
-      status: "active",
+      status: "inactive",
       totalVotes: 0,
       options: Array(2).fill({ name: "Option", totalVotes: 0 })
     };
@@ -83,6 +83,43 @@ describe("Poll Validation Schema", () => {
     expect(error).toBeDefined();
     expect(error.details[0].message).toContain(
       '"description" is not allowed to be empty'
+    );
+    expect(error).toBeDefined();
+    expect(value).toEqual(validPoll);
+  });
+
+  it("should return error if status is not inactive", () => {
+    const validPoll = {
+      name: "test",
+      description: "test",
+      status: "active",
+      totalVotes: 0,
+      options: Array(2).fill({ name: "Option", totalVotes: 0 })
+    };
+
+    const { error, value } = validateAgainstSchema(validPoll);
+    expect(error).toBeDefined();
+    expect(error.details[0].message).toContain("must be [inactive]");
+    expect(error).toBeDefined();
+    expect(value).toEqual(validPoll);
+  });
+
+  it("should return error if option name value is greater than 20 characters", () => {
+    const validPoll = {
+      name: "test",
+      description: "test",
+      status: "inactive",
+      totalVotes: 0,
+      options: Array(2).fill({
+        name: "dfafsdfsfdsfdscddscsdcscfsdfs",
+        totalVotes: 0
+      })
+    };
+
+    const { error, value } = validateAgainstSchema(validPoll);
+    expect(error).toBeDefined();
+    expect(error.details[0].message).toContain(
+      '"options[0].name" length must be less than or equal to 20 characters long'
     );
     expect(error).toBeDefined();
     expect(value).toEqual(validPoll);
