@@ -3,8 +3,8 @@
 .poll-result-container {
   border: 2px solid variables.$border-colour-white;
   border-radius: 4%;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
   background-color: rgba(255, 255, 255, 0.1);
   width: variables.$option-width;
   max-width: variables.$option-max-width;
@@ -12,15 +12,13 @@
   max-height: 100px;
   display: grid;
   place-items: start;
-  display: flex;
 
   .progress-bar-container {
     overflow: hidden;
     height: 2rem;
-    width: 50vw;
+    width: 100%;
     height: 15vh;
     max-height: 100px;
-    // max-width: 400px;
     color: variables.$primary-text-colour;
     font-family: variables.$primary-font-family;
     position: relative;
@@ -29,11 +27,10 @@
 
     span {
       position: absolute;
-      color: white;
-      font-weight: bold;
+      color: variables.$primary-text-colour;
       z-index: 2;
-      top: 3vh;
-      left: 8vw;
+      top: 4vh;
+      left: 25%;
       font-family: variables.$primary-font-family;
       font-size: 1.5rem;
     }

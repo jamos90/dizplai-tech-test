@@ -4,7 +4,7 @@
   display: grid;
   place-items: start center;
 
-  .results-headers {
+  .results-header {
     height: 10vh;
     width: 100vw;
     margin-bottom: 1%;
@@ -12,15 +12,21 @@
     place-content: center;
 
     .header {
-      color: variables.$primary-text-colour;
       font-family: variables.$primary-font-family;
-      font-size: 2rem;
-      margin: 0;
+      color: white;
+      font-size: clamp(0.5rem, 15vw, 2.5rem);
+      word-spacing: 2%;
+      text-align: center;
+      line-height: clamp(1rem, 8vh, 4rem);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     }
 
     .header:last-of-type {
       font-weight: bold;
       margin: 1vh;
+      text-align: center;
+      line-height: 1.5;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     }
   }
 

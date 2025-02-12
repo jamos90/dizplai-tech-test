@@ -56,7 +56,11 @@ async function createTables() {
       .returning("*");
 
     await knexInstance("options").insert([
-      { name: "Manchester City", poll_id: poll.id, totalVotes: 0 },
+      {
+        name: "Manchester City",
+        poll_id: poll.id,
+        totalVotes: 0
+      },
       { name: "Manchester United", poll_id: poll.id, totalVotes: 0 }
     ]);
   } catch (err) {
