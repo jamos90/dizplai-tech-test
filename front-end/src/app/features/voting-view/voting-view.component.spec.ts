@@ -21,7 +21,7 @@ describe('VotingViewComponent', () => {
 
   beforeEach(async () => {
     pollService = jasmine.createSpyObj<PollsService>('PollsService', [
-      'getAllPolls',
+      'getActivePoll',
       'updatePollVotesById'
     ]);
 
