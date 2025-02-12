@@ -27,8 +27,7 @@
 
     span {
       position: absolute;
-      color: white;
-      font-weight: bold;
+      color: variables.$primary-text-colour;
       z-index: 2;
       top: 4vh;
       left: 25%;
