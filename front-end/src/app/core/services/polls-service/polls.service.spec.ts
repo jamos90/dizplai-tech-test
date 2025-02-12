@@ -28,12 +28,13 @@ describe('PollsService', () => {
         name: 'test',
         description: 'est-poll',
         totalVotes: 0,
+        status: 'active',
         options: []
       }
     ];
     httpServiceSpy.get.and.returnValue(of(mockPoll));
 
-    service.getAllPolls().subscribe(data => expect(data).toEqual(mockPoll));
+    service.getActivePoll().subscribe(data => expect(data).toEqual(mockPoll));
     expect(httpServiceSpy.get).toHaveBeenCalled();
   });
 

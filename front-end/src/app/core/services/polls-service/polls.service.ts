@@ -15,7 +15,7 @@ export class PollsService {
     return data;
   }
 
-  public getPollById(pollId): Observable<Poll> {
+  public getPollById(pollId): Observable<Poll[]> {
     return this.httpService.get(`polls/${pollId}`);
   }
 
