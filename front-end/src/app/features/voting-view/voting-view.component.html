@@ -1,7 +1,7 @@
 <div class="poll-view-container">
   @if (poll) {
   <div class="poll-description">
-    <span>{{ poll.description }}</span>
+    <div class="description-text">{{ poll.description }}</div>
   </div>
   <div class="poll-entry-container">
     @for (entry of poll.options; track entry.name; let i = $index;) {

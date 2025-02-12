@@ -12,11 +12,14 @@
     display: grid;
     place-content: center;
 
-    span {
+    .description-text {
       font-family: variables.$primary-font-family;
       color: white;
-      font-size: 2rem;
-      word-spacing: 5px;
+      font-size: clamp(0.5rem, 15vw, 2.5rem);
+      word-spacing: 2%;
+      text-align: center;
+      line-height: clamp(1rem, 8vh, 4rem);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     }
   }
 

@@ -7,20 +7,26 @@
   .results-headers {
     height: 10vh;
     width: 100vw;
-    margin-bottom: 1%;
+    margin-bottom: 5%;
     display: grid;
     place-content: center;
 
     .header {
       color: variables.$primary-text-colour;
       font-family: variables.$primary-font-family;
-      font-size: 2rem;
+      font-size: 2.5rem;
       margin: 0;
+      text-align: center;
+      line-height: 1.5;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     }
 
     .header:last-of-type {
       font-weight: bold;
       margin: 1vh;
+      text-align: center;
+      line-height: 1.5;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     }
   }
 
