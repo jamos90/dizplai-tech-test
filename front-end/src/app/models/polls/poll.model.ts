@@ -5,5 +5,6 @@ export interface Poll {
   name: string;
   description: string;
   totalVotes: number;
+  status: string;
   options: Array<Option>;
 }
