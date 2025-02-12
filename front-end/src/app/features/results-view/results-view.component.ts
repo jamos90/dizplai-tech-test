@@ -28,9 +28,8 @@ export class ResultsViewComponent {
   }
 
   fetchData(pollId) {
-    console.log(pollId);
     this.pollService.getPollById(pollId).subscribe(
-      (poll: Poll) => (this.poll = poll[0]),
+      (poll: Poll[]) => (this.poll = poll[0]),
       err => console.log(`Error fetching poll with id ${pollId}`, err),
       () => 'Finished fetching poll by id'
     );
