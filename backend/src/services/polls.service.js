@@ -8,7 +8,11 @@ class PollService {
       const polls = await PollModel.query().withGraphFetched("options");
       return this.createReturnObject(true, polls);
     } catch (err) {
-      return this.createReturnObject(false, {}, "error fetching all polls");
+      return this.createReturnObject(
+        false,
+        {},
+        `error fetching all polls ${err}`
+      );
     }
   }
 
@@ -22,7 +26,7 @@ class PollService {
       return createReturnObject(
         false,
         {},
-        "Error fetching poll with active status"
+        `Error fetching poll with active status ${err}`
       );
     }
   }
