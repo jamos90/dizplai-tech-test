@@ -18,6 +18,7 @@ export class ResultsViewComponent {
   ) {}
   poll: Poll;
   pollId: String;
+  viewTitle = 'Thank you for your response';
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
